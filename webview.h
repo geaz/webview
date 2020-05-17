@@ -1059,7 +1059,10 @@ public:
     }
   }
   void *window() { return (void *)m_window; }
-  void terminate() { PostQuitMessage(0); }
+  void terminate() {
+    PostMessage(m_window, WM_CLOSE, 0, 0);
+    PostQuitMessage(0); 
+  }
   void dispatch(dispatch_fn_t f) {
     PostThreadMessage(m_main_thread, WM_APP, 0, (LPARAM) new dispatch_fn_t(f));
   }
