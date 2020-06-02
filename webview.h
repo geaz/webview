@@ -1156,7 +1156,7 @@ public:
   }
 
   void bind(const std::string name, binding_t f, void *arg) {
-    auto js = "(function() { var name = '" + name + "';" + R"(
+    auto js = "var name = '" + name + "';" + R"(
       var RPC = window._rpc = (window._rpc || {nextSeq: 1});
       window[name] = function() {
         var seq = RPC.nextSeq++;
@@ -1172,8 +1172,7 @@ public:
           params: Array.prototype.slice.call(arguments),
         }));
         return promise;
-      }
-    })())";
+      })";
     init(js);
     bindings[name] = new binding_ctx_t(new binding_t(f), arg);
   }
